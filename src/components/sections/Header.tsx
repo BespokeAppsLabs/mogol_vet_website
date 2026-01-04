@@ -20,7 +20,7 @@ export function Header() {
                     </div>
                 </Link>
 
-                <div className="flex items-center gap-8">
+                <div className="flex items-center gap-4">
                     <nav className="hidden md:flex items-center gap-6">
                         {["Emergency", "Clinic", "Vault", "Mission"].map((item) => (
                             <Link
@@ -32,7 +32,14 @@ export function Header() {
                             </Link>
                         ))}
                     </nav>
-                    <ModeToggle />
+                    <div className="flex items-center gap-2">
+                        <Link href="/admin/login">
+                            <button className="text-[10px] font-black uppercase tracking-[0.3em] text-foreground/40 hover:text-primary transition-colors px-4 py-2 border-2 border-transparent hover:border-primary/20 transition-all duration-300">
+                                Login
+                            </button>
+                        </Link>
+                        <ModeToggle />
+                    </div>
                 </div>
             </div>
 
