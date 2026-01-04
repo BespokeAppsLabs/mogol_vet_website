@@ -1,65 +1,126 @@
-import Image from "next/image";
+"use client"
+
+import { useRef, useState, useEffect } from "react"
+import gsap from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { useGSAP } from "@gsap/react"
+
+// Sections
+import { Header } from "@/components/sections/Header"
+import { HeroSection } from "@/components/sections/HeroSection"
+import { PivotSection } from "@/components/sections/PivotSection"
+import { VaultSection } from "@/components/sections/VaultSection"
+import { TimelineSection } from "@/components/sections/TimelineSection"
+import { DeploymentSection } from "@/components/sections/DeploymentSection"
+import { GrainOverlay } from "@/components/custom/GrainOverlay"
+import { EmergencyHUD } from "@/components/custom/EmergencyHUD"
+
+gsap.registerPlugin(ScrollTrigger, useGSAP)
 
 export default function Home() {
+  const containerRef = useRef<HTMLDivElement>(null)
+  const [isEmergencyOpen, setIsEmergencyOpen] = useState(false)
+  const sweepRef = useRef<HTMLDivElement>(null)
+
+  useGSAP(() => {
+    const sections = gsap.utils.toArray<HTMLElement>(".narrative-section")
+
+    // 1. Pinned Transition Engine
+    // We pin each section and animate the next one sliding over it
+    sections.forEach((section, i) => {
+      if (i === sections.length - 1) return // Last section doesn't pin
+
+      ScrollTrigger.create({
+        trigger: section,
+        start: "top top",
+        pin: true,
+        pinSpacing: false,
+        // For Timeline (index 3), we want it to scroll longer before the next section wipes over it
+        end: i === 3 ? "bottom 50%" : "bottom top",
+        scrub: true
+      })
+    })
+
+    // 2. Lidar Sweep Transition Orchestration
+    // Ties the sweep specifically to the transition between Hero (0) and Pivot (1)
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: sections[0],
+        start: "top top",
+        end: "100% top",
+        scrub: 1.2,
+      }
+    })
+      .fromTo(sweepRef.current,
+        { y: "0vh", opacity: 0 },
+        { y: "100vh", opacity: 1, ease: "power2.inOut" }
+      )
+      .to(sweepRef.current, { opacity: 0, duration: 0.1 })
+
+    // 3. Global Bloom / Flash Logic (Uplink)
+    // Triggers when a new section is about to "snap" into view
+    sections.forEach((section, i) => {
+      if (i === 0) return
+
+      gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: "top 80%",
+          toggleActions: "play none none reverse"
+        }
+      })
+        .to("body", {
+          filter: "brightness(1.5) contrast(1.2)",
+          duration: 0.2,
+          ease: "power2.out"
+        })
+        .to("body", {
+          filter: "brightness(1) contrast(1)",
+          duration: 0.5,
+          ease: "power2.in"
+        })
+    })
+
+  }, { scope: containerRef })
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
-  );
+    <main ref={containerRef} className="relative bg-background text-foreground selection:bg-primary selection:text-primary-foreground">
+      <Header />
+      <GrainOverlay />
+
+      {/* Lidar Sweep Overlay */}
+      <div
+        ref={sweepRef}
+        className="fixed top-[-100vh] left-0 w-full h-[2px] bg-primary/80 shadow-[0_0_30px_rgba(var(--primary),1)] z-[100] pointer-events-none"
+      />
+
+      {/* Scroll Sections */}
+      <div id="hero" className="pinned-section">
+        <HeroSection onTrigger={() => setIsEmergencyOpen(true)} />
+      </div>
+
+      <div id="clinic" className="pinned-section">
+        <PivotSection />
+      </div>
+
+      <div id="vault" className="pinned-section">
+        <VaultSection />
+      </div>
+
+      <div id="timeline" className="pinned-section">
+        <TimelineSection />
+      </div>
+
+      <div id="mission" className="pinned-section">
+        <DeploymentSection onTrigger={() => setIsEmergencyOpen(true)} />
+      </div>
+
+      {/* Persistent UI Elements */}
+      <div className="fixed bottom-8 right-8 z-[60] mix-blend-difference pointer-events-none">
+        <span className="text-[10px] font-mono text-foreground/40 uppercase tracking-[0.2em]">Deployment: Aurelius // Savannah</span>
+      </div>
+
+      <EmergencyHUD isOpen={isEmergencyOpen} onClose={() => setIsEmergencyOpen(false)} />
+    </main>
+  )
 }
