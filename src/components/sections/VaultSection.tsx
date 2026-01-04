@@ -8,13 +8,13 @@ import { Activity, Clock, CheckCircle, Map, Target, Zap, Shield } from "lucide-r
 
 export function VaultSection() {
     return (
-        <section className="relative min-h-screen w-full bg-background py-32 px-6 md:px-12 lg:px-24 overflow-hidden text-foreground">
+        <section className="relative min-h-screen w-full bg-background py-20 md:py-32 px-4 md:px-12 lg:px-24 overflow-hidden text-foreground">
             {/* Background Grid Accent */}
             <div className="absolute inset-0 opacity-[0.03] pointer-events-none"
                 style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, currentColor 1px, transparent 0)', backgroundSize: '40px 40px' }}
             />
 
-            <div className="max-w-7xl mx-auto space-y-16 relative z-10">
+            <div className="max-w-7xl mx-auto space-y-12 md:space-y-16 relative z-10">
                 {/* Header HUD */}
                 <div className="flex flex-col md:flex-row justify-between items-end gap-8 border-b border-border/10 pb-12">
                     <div className="space-y-4">

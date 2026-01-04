@@ -12,7 +12,7 @@ export function MissionDeploymentDialog() {
             title="Mission Deployment"
             description="Tactical readiness: Active // All systems operational."
             trigger={
-                <TacticalButton variant="outline" className="mt-8 opacity-0 group-hover:opacity-100 transition-all translate-y-4 group-hover:translate-y-0 text-foreground hover:text-background">
+                <TacticalButton variant="outline" className="mt-8 md:opacity-0 md:group-hover:opacity-100 transition-all md:translate-y-4 md:group-hover:translate-y-0 text-foreground hover:text-background">
                     DEPLOY MISSION
                 </TacticalButton>
             }

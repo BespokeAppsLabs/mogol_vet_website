@@ -13,16 +13,16 @@ export function TimelineSection() {
     const beamHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"])
 
     return (
-        <section ref={containerRef} className="relative min-h-[200vh] w-full bg-background py-32 px-6 md:px-24">
+        <section ref={containerRef} className="relative min-h-[150vh] md:min-h-[300vh] w-full bg-background py-20 md:py-32 px-4 md:px-24 overflow-hidden">
             {/* Centered Tracing Beam */}
-            <div className="absolute left-1/2 -translate-x-1/2 top-0 h-full w-[2px] bg-border/10">
+            <div className="absolute left-4 md:left-1/2 md:-translate-x-1/2 top-0 h-full w-[2px] bg-border/10">
                 <motion.div
                     style={{ height: beamHeight }}
                     className="absolute top-0 w-full bg-primary shadow-[0_0_30px_rgba(var(--primary),0.8)]"
                 />
             </div>
 
-            <div className="relative space-y-[60vh] max-w-7xl mx-auto">
+            <div className="relative space-y-[30vh] md:space-y-[60vh] max-w-7xl mx-auto pl-8 md:pl-0">
                 {/* Step 1: Rapid Response */}
                 <TimelineStep
                     number="01"
@@ -81,9 +81,9 @@ function TimelineStep({
     const yParallax = useTransform(scrollYProgress, [0, 1], ["10%", "-10%"])
 
     return (
-        <div ref={ref} className={`flex flex-col ${reverse ? 'md:flex-row-reverse' : 'md:flex-row'} items-center gap-12 group`}>
+        <div ref={ref} className={`flex flex-col ${reverse ? 'md:flex-row-reverse' : 'md:flex-row'} items-start md:items-center gap-8 md:gap-12 group`}>
             {/* Context Side */}
-            <div className={`flex-1 ${reverse ? 'text-left' : 'text-right'}`}>
+            <div className={`flex-1 w-full text-left ${reverse ? 'md:text-left' : 'md:text-right'}`}>
                 <div className="inline-block w-full max-w-md">
                     <TacticalCard
                         title={`${number} // ${title}`}
@@ -95,12 +95,12 @@ function TimelineStep({
             </div>
 
             {/* Pivot Point */}
-            <div className="flex-none w-8 h-8 rounded-full bg-background border-4 border-primary z-10 shadow-[0_0_20px_rgba(var(--primary),0.5)] flex items-center justify-center">
+            <div className="hidden md:flex flex-none w-8 h-8 rounded-full bg-background border-4 border-primary z-10 shadow-[0_0_20px_rgba(var(--primary),0.5)] items-center justify-center">
                 <div className="w-2 h-2 bg-primary rounded-full animate-pulse" />
             </div>
 
             {/* Visual Side */}
-            <div className="flex-1">
+            <div className="flex-1 w-full">
                 <motion.div
                     style={{ y: yParallax }}
                     className="relative aspect-video w-full max-w-xl overflow-hidden border-2 border-border shadow-2xl group-hover:border-primary/40 transition-colors"

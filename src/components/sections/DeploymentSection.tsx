@@ -70,15 +70,15 @@ export function DeploymentSection({ onTrigger }: { onTrigger: () => void }) {
                 </motion.div>
 
                 {/* Center Core - OPERATION */}
-                <div className="text-center space-y-12 order-1 md:order-2">
+                <div className="text-center space-y-8 md:space-y-12 order-1 md:order-2">
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 1.2, ease: "circOut" }}
                         className="space-y-4"
                     >
-                        <div className="h-2 w-32 bg-primary mx-auto shadow-[0_0_15px_rgba(var(--primary),0.5)]" />
-                        <h2 className="text-6xl md:text-8xl font-black italic uppercase tracking-tighter text-foreground leading-[0.9]">
+                        <div className="h-1 md:h-2 w-24 md:w-32 bg-primary mx-auto shadow-[0_0_15px_rgba(var(--primary),0.5)]" />
+                        <h2 className="text-5xl md:text-8xl font-black italic uppercase tracking-tighter text-foreground leading-[0.9]">
                             MISSION:<br />READY
                         </h2>
                     </motion.div>
@@ -86,7 +86,7 @@ export function DeploymentSection({ onTrigger }: { onTrigger: () => void }) {
                     <TacticalButton
                         size="lg"
                         onClick={onTrigger}
-                        className="px-12 py-10 md:px-20 md:py-12 text-xl md:text-3xl animate-pulse shadow-[0_0_40px_rgba(var(--primary),0.2)] w-full md:w-auto"
+                        className="px-8 py-6 md:px-20 md:py-12 text-lg md:text-3xl animate-pulse shadow-[0_0_40px_rgba(var(--primary),0.2)] w-full md:w-auto"
                     >
                         INITIATE DEPLOYMENT
                     </TacticalButton>

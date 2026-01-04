@@ -16,13 +16,13 @@ import { motion } from "framer-motion";
 
 export default function DashboardPage() {
     return (
-        <div className="p-10 space-y-10">
+        <div className="p-6 md:p-10 space-y-10">
             <div className="space-y-2">
                 <div className="flex items-center gap-2 text-primary/60">
                     <Shield size={14} />
                     <span className="text-[10px] font-black tracking-[0.4em] uppercase">OPERATIONAL OVERVIEW</span>
                 </div>
-                <h1 className="text-5xl font-black italic uppercase tracking-tighter">DASHBOARD</h1>
+                <h1 className="text-3xl md:text-5xl font-black italic uppercase tracking-tighter leading-none">DASHBOARD</h1>
             </div>
 
             <BentoGrid className="max-w-7xl mx-auto">

@@ -5,13 +5,13 @@ import { Shield, Clock } from "lucide-react";
 
 export default function AppointmentsPage() {
     return (
-        <div className="h-full flex flex-col items-center justify-center p-10 text-center space-y-6">
+        <div className="h-full flex flex-col items-center justify-center p-6 md:p-10 text-center space-y-6">
             <div className="space-y-2">
                 <div className="flex justify-center items-center gap-2 text-primary/60">
                     <Shield size={14} />
                     <span className="text-[10px] font-black tracking-[0.4em] uppercase">SYSTEM MODULE</span>
                 </div>
-                <h1 className="text-5xl font-black italic uppercase tracking-tighter">APPOINTMENT MANAGER</h1>
+                <h1 className="text-3xl md:text-5xl font-black italic uppercase tracking-tighter leading-none">APPOINTMENT MANAGER</h1>
             </div>
 
             <div className="p-8 border-2 border-primary/20 bg-background/50 backdrop-blur-md flex flex-col items-center gap-4">

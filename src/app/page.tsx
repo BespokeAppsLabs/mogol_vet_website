@@ -23,42 +23,43 @@ export default function Home() {
   const sweepRef = useRef<HTMLDivElement>(null)
 
   useGSAP(() => {
-    const sections = gsap.utils.toArray<HTMLElement>(".narrative-section")
+    const mm = gsap.matchMedia()
+    const sections = gsap.utils.toArray<HTMLElement>(".pinned-section")
 
-    // 1. Pinned Transition Engine
-    // We pin each section and animate the next one sliding over it
-    sections.forEach((section, i) => {
-      if (i === sections.length - 1) return // Last section doesn't pin
+    mm.add("(min-width: 768px)", () => {
+      // 1. Pinned Transition Engine (Desktop only)
+      sections.forEach((section, i) => {
+        if (i === sections.length - 1) return
+        // Skip pinning for TimelineSection (index 3) as it has internal scroll-based logic
+        if (i === 3) return
 
-      ScrollTrigger.create({
-        trigger: section,
-        start: "top top",
-        pin: true,
-        pinSpacing: false,
-        // For Timeline (index 3), we want it to scroll longer before the next section wipes over it
-        end: i === 3 ? "bottom 50%" : "bottom top",
-        scrub: true
+        ScrollTrigger.create({
+          trigger: section,
+          start: "top top",
+          pin: true,
+          pinSpacing: false,
+          end: i === 3 ? "bottom 50%" : "bottom top",
+          scrub: true
+        })
       })
+
+      // 2. Lidar Sweep Transition Orchestration (Desktop only)
+      gsap.timeline({
+        scrollTrigger: {
+          trigger: sections[0],
+          start: "top top",
+          end: "100% top",
+          scrub: 1.2,
+        }
+      })
+        .fromTo(sweepRef.current,
+          { y: "0vh", opacity: 0 },
+          { y: "100vh", opacity: 1, ease: "power2.inOut" }
+        )
+        .to(sweepRef.current, { opacity: 0, duration: 0.1 })
     })
 
-    // 2. Lidar Sweep Transition Orchestration
-    // Ties the sweep specifically to the transition between Hero (0) and Pivot (1)
-    gsap.timeline({
-      scrollTrigger: {
-        trigger: sections[0],
-        start: "top top",
-        end: "100% top",
-        scrub: 1.2,
-      }
-    })
-      .fromTo(sweepRef.current,
-        { y: "0vh", opacity: 0 },
-        { y: "100vh", opacity: 1, ease: "power2.inOut" }
-      )
-      .to(sweepRef.current, { opacity: 0, duration: 0.1 })
-
-    // 3. Global Bloom / Flash Logic (Uplink)
-    // Triggers when a new section is about to "snap" into view
+    // 3. Global Bloom / Flash Logic (Uplink) - Keep for both but soften for mobile
     sections.forEach((section, i) => {
       if (i === 0) return
 
@@ -81,6 +82,7 @@ export default function Home() {
         })
     })
 
+    return () => mm.revert()
   }, { scope: containerRef })
 
   return (
@@ -113,11 +115,6 @@ export default function Home() {
 
       <div id="mission" className="pinned-section">
         <DeploymentSection onTrigger={() => setIsEmergencyOpen(true)} />
-      </div>
-
-      {/* Persistent UI Elements */}
-      <div className="fixed bottom-8 right-8 z-[60] mix-blend-difference pointer-events-none">
-        <span className="text-[10px] font-mono text-foreground/40 uppercase tracking-[0.2em]">Deployment: Aurelius // Savannah</span>
       </div>
 
       <EmergencyHUD isOpen={isEmergencyOpen} onClose={() => setIsEmergencyOpen(false)} />

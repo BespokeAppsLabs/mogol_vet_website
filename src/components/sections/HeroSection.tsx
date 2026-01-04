@@ -35,10 +35,7 @@ export function HeroSection({ onTrigger }: { onTrigger: () => void }) {
             <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-transparent to-background" />
 
             {/* Content Container */}
-            <motion.div
-                style={{ opacity }}
-                className="relative z-10 text-center space-y-12"
-            >
+            <div className="relative z-10 text-center space-y-8 md:space-y-12 px-6">
                 <motion.div
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
@@ -47,20 +44,21 @@ export function HeroSection({ onTrigger }: { onTrigger: () => void }) {
                     <div className="flex flex-col items-center max-w-4xl mx-auto">
                         <motion.span
                             initial={{ letterSpacing: "0.2em", opacity: 0 }}
-                            animate={{ letterSpacing: "1em", opacity: 1 }}
+                            animate={{ letterSpacing: "0.5em", opacity: 1 }}
+                            whileInView={{ letterSpacing: "1em" }}
                             transition={{ duration: 2, delay: 0.5 }}
-                            className="text-[10px] font-black uppercase text-primary mb-6"
+                            className="text-[8px] md:text-[10px] font-black uppercase text-primary mb-4 md:mb-6 text-center"
                         >
-                            GUARDYANS OF THE BUSHVELD
+                            GUARDIANS OF THE BUSHVELD
                         </motion.span>
-                        <h1 className="text-7xl md:text-9xl font-black italic uppercase tracking-tighter text-foreground drop-shadow-2xl leading-none">
+                        <h1 className="text-6xl md:text-9xl font-black italic uppercase tracking-tighter text-foreground drop-shadow-2xl leading-none">
                             MOGOL
                         </h1>
                         <motion.p
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 1, duration: 1 }}
-                            className="text-lg md:text-xl font-bold uppercase italic tracking-tighter text-foreground/60 mt-4 max-w-2xl"
+                            className="text-base md:text-xl font-bold uppercase italic tracking-tighter text-foreground/60 mt-4 max-w-lg md:max-w-2xl px-4"
                         >
                             Guardians of the Bushveld. Eliminating "Dead Time" in Veterinary Care.
                         </motion.p>
@@ -75,30 +73,21 @@ export function HeroSection({ onTrigger }: { onTrigger: () => void }) {
                     <TacticalButton
                         size="lg"
                         onClick={onTrigger}
-                        className="px-16 py-10 text-2xl animate-pulse shadow-[0_0_40px_rgba(var(--primary),0.2)]"
+                        className="px-8 py-6 md:px-16 md:py-10 text-lg md:text-2xl animate-pulse shadow-[0_0_40px_rgba(var(--primary),0.2)]"
                     >
                         INITIATE DEPLOYMENT
                     </TacticalButton>
                 </motion.div>
-            </motion.div>
+            </div>
 
             {/* Scanning HUD elements */}
-            <div className="absolute inset-0 pointer-events-none">
+            <div className="absolute inset-0 pointer-events-none hidden md:block">
                 <div className="absolute top-12 left-12 h-20 w-20 border-l-2 border-t-2 border-primary/30" />
                 <div className="absolute top-12 right-12 h-20 w-20 border-r-2 border-t-2 border-primary/30" />
                 <div className="absolute bottom-12 left-12 h-20 w-20 border-l-2 border-b-2 border-primary/30" />
                 <div className="absolute bottom-12 right-12 h-20 w-20 border-r-2 border-b-2 border-primary/30" />
             </div>
 
-            {/* Tactical Meta */}
-            <div className="absolute bottom-12 left-24 font-mono text-[10px] text-foreground/40 space-y-1 hidden md:block">
-                <div className="flex items-center gap-2">
-                    <div className="h-1 w-8 bg-primary animate-pulse" />
-                    <p>COORD: 23.6823° S, 27.7303° E</p>
-                </div>
-                <p>STATUS: OPTIMAL</p>
-                <p>UNIT: AURELIUS-01</p>
-            </div>
         </section>
     )
 }

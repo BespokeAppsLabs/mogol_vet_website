@@ -35,7 +35,7 @@ export function MissionDialog({
             <DialogTrigger asChild>
                 {trigger}
             </DialogTrigger>
-            <DialogContent className={cn("rounded-none border-2 border-border max-w-lg bg-card p-0 overflow-hidden", className)}>
+            <DialogContent className={cn("rounded-none border-2 border-border max-w-lg bg-card p-0 overflow-hidden z-[150] sm:translate-y-0", className)}>
                 <DialogHeader className="p-8 pb-4 border-b-2 border-border/50 bg-muted/20">
                     <div className="flex items-center gap-2 mb-2">
                         <div className="h-1 w-8 bg-primary" />
