@@ -20,35 +20,35 @@ export function AdminSidebar() {
             label: "Dashboard",
             href: "/admin/dashboard",
             icon: (
-                <IconBrandTabler className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
+                <IconBrandTabler className="h-5 w-5 shrink-0 text-sidebar-foreground" />
             ),
         },
         {
             label: "Appointments",
             href: "/admin/appointments",
             icon: (
-                <IconCalendarEvent className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
+                <IconCalendarEvent className="h-5 w-5 shrink-0 text-sidebar-foreground" />
             ),
         },
         {
             label: "Missions",
             href: "/admin/missions",
             icon: (
-                <IconHelicopter className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
+                <IconHelicopter className="h-5 w-5 shrink-0 text-sidebar-foreground" />
             ),
         },
         {
             label: "Settings",
             href: "/admin/settings",
             icon: (
-                <IconSettings className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
+                <IconSettings className="h-5 w-5 shrink-0 text-sidebar-foreground" />
             ),
         },
         {
             label: "Logout",
             href: "/",
             icon: (
-                <IconLogout className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
+                <IconLogout className="h-5 w-5 shrink-0 text-sidebar-foreground" />
             ),
         },
     ];
@@ -88,7 +88,7 @@ export const Logo = () => {
     return (
         <Link
             href="/admin/dashboard"
-            className="relative z-20 flex items-center space-x-2 py-1 text-sm font-normal text-black dark:text-white"
+            className="relative z-20 flex items-center space-x-2 py-1 text-sm font-normal text-sidebar-foreground"
         >
             <div className="h-5 w-6 shrink-0 bg-primary" />
             <motion.span
@@ -106,7 +106,7 @@ export const LogoIcon = () => {
     return (
         <Link
             href="/admin/dashboard"
-            className="relative z-20 flex items-center space-x-2 py-1 text-sm font-normal text-black dark:text-white"
+            className="relative z-20 flex items-center space-x-2 py-1 text-sm font-normal text-sidebar-foreground"
         >
             <div className="h-5 w-6 shrink-0 bg-primary" />
         </Link>

@@ -42,7 +42,7 @@ export default function DashboardPage() {
 }
 
 const Skeleton = ({ children, color }: { children?: React.ReactNode, color?: string }) => (
-    <div className={`flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-neutral-100 dark:bg-neutral-900 border border-transparent dark:border-white/[0.2] items-center justify-center relative overflow-hidden group`}>
+    <div className={`flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-card border border-border/10 items-center justify-center relative overflow-hidden group`}>
         <div className="absolute inset-0 opacity-[0.03] pointer-events-none"
             style={{ backgroundImage: 'linear-gradient(rgba(var(--primary),0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(var(--primary),0.5) 1px, transparent 1px)', backgroundSize: '20px 20px' }}
         />
