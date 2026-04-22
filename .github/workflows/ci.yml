@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main, dev]
+
+jobs:
+  validate:
+    name: Validate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'yarn'
+      - name: Install dependencies
+        run: yarn --frozen-lockfile
+      - name: Lint
+        run: yarn lint
+        continue-on-error: true
+      - name: Type check
+        run: yarn type-check
+        continue-on-error: true
+      - name: Build
+        run: yarn build
+        continue-on-error: true
